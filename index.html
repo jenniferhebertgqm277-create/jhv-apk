@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Juragan Hosting Simulator (JHV) v1.000.5r</title>
+  <title>Juragan Hosting Simulator (JHV) v1.000.6a</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@
   <div id="screen-loading" style="transition:opacity .3s" class="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-sky-500 to-sky-200 text-center p-6">
     <div class="text-5xl">🖥️</div>
     <div class="text-2xl sm:text-3xl font-black text-white drop-shadow">Juragan Hosting Simulator</div>
-    <div class="text-[11px] font-extrabold text-sky-900 bg-white/70 px-2.5 py-0.5 rounded-full">JHV v1.000.5r</div>
+    <div class="text-[11px] font-extrabold text-sky-900 bg-white/70 px-2.5 py-0.5 rounded-full">JHV v1.000.6a</div>
     <div class="w-56 h-2.5 rounded-full bg-white/60 overflow-hidden mt-2"><div id="loading-bar" class="h-full w-0 bg-emerald-500 transition-all duration-200"></div></div>
     <div id="loading-label" class="text-[11px] font-bold text-sky-900">Memuat...</div>
   </div>
@@ -92,7 +92,7 @@
     <div class="glass-day rounded-3xl p-5 sm:p-6 w-full max-w-sm flex flex-col gap-4 text-center">
       <div>
         <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-sky-100 border border-sky-300 text-sky-700 text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
-          JHV v1.000.5r
+          JHV v1.000.6a
         </div>
         <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
           Juragan Hosting Simulator
@@ -266,7 +266,7 @@
         <button id="btn-cam-reset" class="glass-day btn-game px-2 h-7 rounded-lg font-bold text-[10px] text-slate-700">🎯</button>
       </div>
 
-      <div class="glass-day rounded-2xl p-1 grid grid-cols-5 gap-1 max-w-md w-full mx-auto">
+      <div class="glass-day rounded-2xl p-1 grid grid-cols-6 gap-1 max-w-md w-full mx-auto">
         <button id="dock-btn-boss-pc" class="btn-game relative flex flex-col items-center justify-center py-1.5 rounded-xl bg-sky-600 text-white shadow">
           <span id="dock-pc-badge" class="hidden absolute -top-1 -right-1 min-w-[16px] h-[16px] px-1 rounded-full bg-red-500 text-white text-[9px] font-black flex items-center justify-center">0</span>
           <span class="text-sm">💻</span>
@@ -283,6 +283,10 @@
         <button id="dock-btn-assemble" class="btn-game flex flex-col items-center justify-center py-1.5 rounded-xl bg-white/90 hover:bg-sky-50 border border-sky-200">
           <span class="text-sm">🔧</span>
           <span class="text-[10px] font-bold text-slate-800">Rakit</span>
+        </button>
+        <button id="dock-btn-servers" class="btn-game flex flex-col items-center justify-center py-1.5 rounded-xl bg-white/90 hover:bg-sky-50 border border-sky-200">
+          <svg viewBox="0 0 24 24" class="w-4 h-4 text-sky-700" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg>
+          <span class="text-[10px] font-bold text-slate-800">Servers</span>
         </button>
         <button id="dock-btn-help" class="btn-game flex flex-col items-center justify-center py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300">
           <span class="text-sm">💡</span>
@@ -337,7 +341,7 @@
       </div>
 
       <!-- Start Menu Popup -->
-      \1
+      <div id="win11-start-menu" class="hidden absolute bottom-2 left-1/2 -translate-x-1/2 z-30 glass-win11 rounded-2xl p-3 w-[90%] max-w-xs flex flex-col gap-2">
         <button id="btn-wall-change" class="btn-game py-1.5 rounded-lg btn-sky text-[11px] font-bold">Ganti Wallpaper</button>
         <button id="btn-wall-reset" class="btn-game py-1.5 rounded-lg bg-white border border-slate-300 text-[11px] font-bold text-slate-700">Wallpaper Bawaan</button>
         <input id="file-wall" type="file" accept="image/*" class="hidden" />
@@ -466,6 +470,16 @@
         <button data-close-modal="modal-inspect" class="btn-game w-7 h-7 rounded-lg bg-slate-200 text-slate-700 font-bold text-xs">✕</button>
       </div>
       <div id="inspect-body" class="p-3 overflow-y-auto flex flex-col gap-2.5 text-xs"></div>
+    </div>
+  </div>
+
+  <div id="modal-servers" class="hidden fixed inset-0 z-50 bg-slate-900/45 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-3">
+    <div class="glass-day rounded-t-3xl sm:rounded-3xl w-full max-w-md max-h-[86dvh] flex flex-col overflow-hidden">
+      <div class="px-3.5 py-2.5 border-b border-sky-200 flex items-center justify-between">
+        <div><h3 class="text-sm font-black text-slate-900">Servers</h3><p id="servers-sub" class="text-[10px] text-slate-500"></p></div>
+        <button data-close-modal="modal-servers" class="btn-game w-7 h-7 rounded-lg bg-slate-200 text-slate-700 font-bold text-xs">X</button>
+      </div>
+      <div id="servers-body" class="p-3 overflow-y-auto flex flex-col gap-2 text-xs"></div>
     </div>
   </div>
 
@@ -1813,7 +1827,7 @@
           const rawName = (document.getElementById('input-rig-name').value || '').trim().replace(/\s+/g, '-');
           const rigName = rawName || `node-${gameState.builtRigs.length + 1}`;
           gameState.builtRigs.push({
-            id: 'rig_' + Date.now(), name: rigName, stats: ev.stats,
+            id: 'rig_' + Date.now(), name: rigName, stats: ev.stats, parts: JSON.parse(JSON.stringify(benchDraft)),
             mountedIn: null, role: 'none', apps: [], ddosActive: false, cred: (lastCred = makeCred())
           });
           gameState.researchPoints += 15;
@@ -2019,7 +2033,7 @@
       const win = document.getElementById('win11-window');
       win.classList.remove('hidden');
       const meta = {
-        putti: { icon: '💻', title: 'PUTTi — SSH Server Terminal' },
+        putti: { icon: '💻', title: 'PUTTi — Terminal SSH' },
         hostmgr: { icon: '💼', title: 'HostManager — Jualan & Order' },
         tiket: { icon: '🎫', title: 'TiketDesk — Komplain Pelanggan' },
         research: { icon: '🧪', title: 'Research Lab — Teknologi' },
@@ -2111,7 +2125,7 @@
       const cpuPct = Math.min(100, Math.round(sumCpu / cores));
       const ramUsed = (cl.reduce((a, x) => a + (x.spec ? x.spec.ram : 0), 0) + 0.6).toFixed(1);
       const diskUsed = cl.reduce((a, x) => a + (x.spec ? x.spec.storage : 0), 0) + 8;
-      const up = Math.max(60, Math.floor((Date.now() - (parseInt(String(srv.id).replace(/\D/g, '')) || Date.now())) / 1000));
+      const up = Math.max(60, Math.floor((Date.now() - (parseInt((String(srv.id).match(/\d{12,}/) || [Date.now()])[0]) || Date.now())) / 1000));
       const upTxt = `${Math.floor(up / 3600)} jam, ${Math.floor(up % 3600 / 60)} menit`;
       const cpuName = st.cpuName || 'Intel(R) Xeon(R) CPU';
       const PROC = { nodejs: 'node', python: 'python3', pterodactyl: 'wings', cyberpanel: 'lsws', docker: 'dockerd', proxmox: 'pveproxy', antiddos: 'fail2ban-server', mariadb: 'mariadbd' };
@@ -2606,7 +2620,7 @@
 
       // 1. Order kedaluwarsa (kesabaran klien mengikuti difficulty)
       const before = gameState.incomingOrders.length;
-      gameState.incomingOrders = gameState.incomingOrders.filter(o => !(o.expiresAt && o.expiresAt < now));
+      gameState.incomingOrders = gameState.incomingOrders.filter(o => (gameState.cheats && gameState.cheats.patient) || !(o.expiresAt && o.expiresAt < now));
       const lost = before - gameState.incomingOrders.length;
       if (lost > 0) {
         gameState.rating = Math.max(1.0, Number((gameState.rating - 0.03 * lost).toFixed(2)));
@@ -2625,7 +2639,8 @@
           const prod = PRODUCT_TYPES.find(x => x.id === pkg.prodId);
           const ratio = prod ? pkg.price / fairPrice(prod, pkg, srv) : 1;
           const priceFactor = ratio <= 1.05 ? 1 : Math.max(0.05, 1 - (ratio - 1.05) * 1.1);
-          const chance = Math.min(0.6, (0.16 + (gameState.rating - 2.5) * 0.06 + gameState.fans * 0.002) * diff.order * priceFactor);
+          const boost = gameState.cheats && gameState.cheats.boost;
+          const chance = Math.min(boost ? 1 : 0.6, (0.16 + (gameState.rating - 2.5) * 0.06 + gameState.fans * 0.002) * diff.order * priceFactor * (boost ? 5 : 1));
           if (Math.random() < chance) {
             const names = ['Budi_RP', 'SitiCraft', 'VeloGaming', 'GarudaRP', 'TokoMaju', 'HanzDev', 'AldiNet', 'BintangX', 'RizkyOps', 'NaylaStore'];
             gameState.incomingOrders.push({
@@ -2644,7 +2659,7 @@
       }
 
       // 4. DDoS: hanya server yang benar-benar menampung klien; peluang naik sesuai klien/fans
-      if (simCounter % 15 === 0) {
+      if (simCounter % 15 === 0 && !(gameState.cheats && gameState.cheats.noddos)) {
         const tgts = getActiveHostingServers().filter(s => !s.ddosActive && gameState.activeClients.some(c => c.serverId === s.id));
         if (tgts.length > 0) {
           const nCl = gameState.activeClients.length;
@@ -2748,7 +2763,7 @@
       if (name === 'game') { updateWallSignboard(); rebuildAllPlacedMeshes(); updateHUD(); if (gameState.bossPending) setTimeout(() => { startPlacementMode('desk'); showToast('Geser Meja Bos ke tempat yang kamu mau, lalu Pasang.', 'info', 4500); }, 350); }
     }
 
-    const ALL_MODALS = ['modal-build', 'modal-shop', 'modal-assemble', 'modal-inspect', 'modal-settings'];
+    const ALL_MODALS = ['modal-build', 'modal-shop', 'modal-assemble', 'modal-inspect', 'modal-settings', 'modal-servers'];
     function closeAllModals() {
       if (!document.getElementById('modal-assemble').classList.contains('hidden')) {
         returnAllBenchPartsToInventory();
@@ -2942,12 +2957,204 @@
       renderer.render(scene, camera);
     }
 
+    /* ================= SERVERS MENU ================= */
+    let srvReveal = {}, srvArm = {};
+    function rigPartIds(r) { const p = r.parts; return p ? [p.casing, p.mobo, p.cpu, p.cooler, p.psu, ...(p.rams || []), ...(p.storages || [])].filter(Boolean) : []; }
+    function rigValue(r) {
+      if (r.parts) return Math.round(rigPartIds(r).reduce((a, id) => a + (HARDWARE_MAP[id] ? HARDWARE_MAP[id].price : 0), 0) * 0.6);
+      return Math.round((r.stats.cpuScore * 40000 + r.stats.ramGb * 60000 + r.stats.storageGb * 300) * 0.5);
+    }
+    function detachRig(r) {
+      gameState.furniture.forEach(f => { if (f.mountedRigIds) f.mountedRigIds = f.mountedRigIds.filter(x => x !== r.id); });
+      gameState.packages = gameState.packages.filter(p => p.serverId !== r.id);
+      gameState.builtRigs = gameState.builtRigs.filter(x => x.id !== r.id);
+      if (puttiConnectedSrvId === r.id) puttiConnectedSrvId = null;
+      cleanupWorld(); rebuildAllPlacedMeshes();
+    }
+    function renderServersModal() {
+      const body = document.getElementById('servers-body');
+      const rigs = gameState.builtRigs.filter(r => r.role !== 'workstation');
+      document.getElementById('servers-sub').textContent = `${rigs.length} server | ${getActiveHostingServers().length} online`;
+      body.innerHTML = '';
+      if (!rigs.length) { body.innerHTML = '<div class="p-3 rounded-xl bg-white/70 text-slate-500 text-[11px]">Belum ada server. Beli part di Toko, lalu rakit di Meja Rakit.</div>'; return; }
+      rigs.forEach(r => {
+        const c = rigCred(r), on = !!(r.mountedIn && r.role === 'server'), cl = gameState.activeClients.filter(x => x.serverId === r.id);
+        const cores = getRigCores(r), used = Math.min(100, Math.round(cl.reduce((a, x) => a + (x.spec ? (x.spec.cpu || x.spec.cores * 100) : 0), 0) / cores));
+        const f = getServerFree(r), rev = !!srvReveal[r.id];
+        const st = r.ddosActive ? ['DDoS', 'bg-rose-100 text-rose-700'] : (on ? ['Online', 'bg-emerald-100 text-emerald-700'] : ['Belum di rak', 'bg-slate-200 text-slate-600']);
+        const el = document.createElement('div');
+        el.className = 'p-2.5 rounded-xl bg-white border border-sky-200 flex flex-col gap-1.5';
+        el.innerHTML = `
+          <div class="flex items-center justify-between gap-2"><b class="text-slate-900 text-[12px] truncate">${esc(r.name)}</b><span class="px-2 py-0.5 rounded-full text-[9px] font-black ${st[1]}">${st[0]}</span></div>
+          <div class="text-[10px] text-slate-600 font-mono-num leading-snug">${esc(r.stats.cpuName || 'CPU')} | ${cores} core | ${r.stats.ramGb}GB RAM | ${r.stats.storageGb}GB<br>Apps: ${esc(r.apps.join(', ') || '-')} | ${cl.length} klien | CPU ${used}%<br>Sisa: ${f.ram}GB RAM, ${f.cpu}% CPU, ${f.storage}GB</div>
+          <div class="rounded-lg bg-slate-900 text-emerald-300 font-mono-num text-[10px] p-2 leading-relaxed break-all">IP : ${esc(c.ip)}<br>User : ${esc(c.user)}<br>Pass : ${rev ? esc(c.pass) : '************'}</div>
+          <div class="grid grid-cols-4 gap-1">
+            <button data-a="rev" class="btn-game py-1 rounded-lg bg-white border border-slate-300 text-[10px] font-bold text-slate-700">${rev ? 'Sembunyi' : 'Tampil'}</button>
+            <button data-a="cp" class="btn-game py-1 rounded-lg bg-white border border-slate-300 text-[10px] font-bold text-slate-700">Salin</button>
+            <button data-a="sell" class="btn-game py-1 rounded-lg btn-sky text-[10px] font-bold">${srvArm[r.id + 's'] ? 'Yakin?' : 'Jual ' + formatShortRp(rigValue(r))}</button>
+            <button data-a="dis" ${r.parts ? '' : 'disabled'} class="btn-game py-1 rounded-lg bg-amber-500 text-white text-[10px] font-bold disabled:opacity-40">${srvArm[r.id + 'd'] ? 'Yakin?' : 'Bongkar'}</button>
+          </div>`;
+        const arm = (k, fn) => { if (srvArm[r.id + k]) { srvArm[r.id + k] = false; fn(); } else { srvArm[r.id + k] = true; renderServersModal(); setTimeout(() => { if (srvArm[r.id + k]) { srvArm[r.id + k] = false; if (!document.getElementById('modal-servers').classList.contains('hidden')) renderServersModal(); } }, 3000); } };
+        el.querySelector('[data-a="rev"]').addEventListener('click', () => { AudioEngine.click(); srvReveal[r.id] = !rev; renderServersModal(); });
+        el.querySelector('[data-a="cp"]').addEventListener('click', () => { AudioEngine.click(); try { navigator.clipboard.writeText(`${c.ip}\n${c.user}\n${c.pass}`); showToast('IP, user & password disalin.', 'success'); } catch (e) { showToast('Salin gagal, tekan Tampil lalu catat manual.', 'error'); } });
+        el.querySelector('[data-a="sell"]').addEventListener('click', () => arm('s', () => {
+          const v = rigValue(r); gameState.money += v; detachRig(r); AudioEngine.money(); updateHUD(); saveGame(false); renderServersModal(); showToast(`${r.name} terjual ${formatShortRp(v)}.`, 'success');
+        }));
+        el.querySelector('[data-a="dis"]').addEventListener('click', () => arm('d', () => {
+          rigPartIds(r).forEach(id => addInventory(id, 1)); detachRig(r); AudioEngine.remove(); updateHUD(); saveGame(false); renderServersModal(); showToast(`${r.name} dibongkar, part kembali ke inventori.`, 'success');
+        }));
+        body.appendChild(el);
+      });
+    }
+
+    /* ================= DEV / CHEAT MENU ================= */
+    let cheatCC = 0, cheatCT = 0, cheatTimerOn = false;
+    function cheatPickPkg() { if (!gameState.packages.length) { showToast('Buat paket hosting dulu.', 'error'); return null; } return gameState.packages[Math.floor(Math.random() * gameState.packages.length)]; }
+    function cheatSpawnOrder() {
+      const p = cheatPickPkg(); if (!p) return;
+      gameState.incomingOrders.push({ id: 'ord_' + Date.now() + '_' + Math.floor(Math.random() * 9999), buyer: 'Dev_' + Math.floor(Math.random() * 999), pkgId: p.id, prodId: p.prodId, pkgName: p.name, serverId: p.serverId, price: p.price, expiresAt: Date.now() + 90000 });
+    }
+    function cheatSpawnClient() {
+      const p = cheatPickPkg(); if (!p) return;
+      const n = pickNodeFor(p) || getActiveHostingServers()[0];
+      if (!n) { showToast('Belum ada server online.', 'error'); return; }
+      gameState.activeClients.push({ id: 'c_' + Date.now() + '_' + Math.floor(Math.random() * 9999), buyer: 'Dev_' + Math.floor(Math.random() * 999), pkgId: p.id, prodId: p.prodId, serverId: n.id, pkgName: p.name, price: p.price, spec: { ram: p.ram, cores: p.cores, cpu: p.cpu || p.cores * 100, storage: p.storage, ports: p.ports }, nextRenewAt: Date.now() + 35000 });
+    }
+    function cheatSpawnTicket() {
+      const cand = gameState.activeClients.filter(c => c.prodId && TICKET_BANK[c.prodId]);
+      if (!cand.length) { showToast('Belum ada klien aktif.', 'error'); return; }
+      const c = cand[Math.floor(Math.random() * cand.length)], b = TICKET_BANK[c.prodId], t = b[Math.floor(Math.random() * b.length)];
+      gameState.tickets.push({ id: 'tk_' + Date.now() + '_' + Math.floor(Math.random() * 9999), clientId: c.id, prodId: c.prodId, title: t[0], sender: c.buyer, msg: t[1].replace('{p}', c.pkgName), replies: TK_REPLIES[t[2]] });
+    }
+    function cheatRigs() { return gameState.builtRigs.filter(r => r.role !== 'workstation'); }
+    function cheatSections() {
+      const hw = HARDWARE_CATALOG, cats = [...new Set(hw.map(h => h.category))];
+      const addAll = n => hw.forEach(h => addInventory(h.id, n));
+      return [
+        ['Ekonomi', [
+          ['+Rp 1 Jt', () => { gameState.money += 1e6; }], ['+Rp 100 Jt', () => { gameState.money += 1e8; }], ['+Rp 1 M', () => { gameState.money += 1e9; }], ['+Rp 1 T', () => { gameState.money += 1e12; }], ['Uang = 0', () => { gameState.money = 0; }],
+          { num: 'Set uang', fn: v => { gameState.money = v; } },
+          ['+100 RP', () => { gameState.researchPoints += 100; }], ['+1000 RP', () => { gameState.researchPoints += 1000; }], ['RP = 0', () => { gameState.researchPoints = 0; }],
+          { num: 'Set RP', fn: v => { gameState.researchPoints = v; } },
+          ['Rating 5.0', () => { gameState.rating = 5; }], ['Rating 3.0', () => { gameState.rating = 3; }], ['Rating 1.0', () => { gameState.rating = 1; }],
+          ['+100 Fans', () => { gameState.fans += 100; }], ['+1000 Fans', () => { gameState.fans += 1000; }], ['Fans = 0', () => { gameState.fans = 0; }]
+        ]],
+        ['Riset & Paket', [
+          ['Buka SEMUA riset', () => { gameState.unlockedResearch = RESEARCH_LIST.map(r => r.id); }],
+          ['Kunci semua riset', () => { gameState.unlockedResearch = []; }],
+          ['Hapus semua paket', () => { gameState.packages = []; cleanupWorld(); }]
+        ]],
+        ['Inventori Part', [
+          ['Semua part x1', () => addAll(1)], ['Semua part x5', () => addAll(5)], ['Semua part x20', () => addAll(20)],
+          ['Kosongkan inventori', () => { gameState.inventory = {}; }],
+          { cat: cats }
+        ]],
+        ['Server', [
+          ['Install semua app (semua server)', () => { cheatRigs().forEach(r => { r.apps = Object.keys(PUTTI_APPS); }); }],
+          ['Kosongkan app semua server', () => { cheatRigs().forEach(r => { r.apps = []; }); }],
+          ['Buat server instan 32C/128GB', () => {
+            const n = cheatRigs().length + 1;
+            gameState.builtRigs.push({ id: 'rig_' + Date.now() + '_' + n, name: 'dev-node-' + n, stats: { cpuScore: 400, cores: 32, cpuName: 'Dev EPYC 32C', ramGb: 128, storageGb: 4000, tdp: 300, form: 'tower' }, mountedIn: null, role: 'none', apps: [], ddosActive: false, cred: makeCred() });
+          }],
+          ['Acak ulang kredensial semua', () => { cheatRigs().forEach(r => { r.cred = makeCred(); }); }],
+          ['Picu DDoS acak', () => { const l = getActiveHostingServers().filter(s => !s.ddosActive); if (!l.length) return showToast('Tidak ada server online.', 'error'); const t = l[Math.floor(Math.random() * l.length)]; t.ddosActive = true; AudioEngine.siren(); rebuildAllPlacedMeshes(); }],
+          ['Hentikan semua DDoS', () => { gameState.builtRigs.forEach(r => { r.ddosActive = false; }); rebuildAllPlacedMeshes(); }]
+        ]],
+        ['Klien, Order & Tiket', [
+          ['Order +1', cheatSpawnOrder], ['Order +5', () => { for (let i = 0; i < 5; i++) cheatSpawnOrder(); }],
+          ['Terima semua order', () => { gameState.incomingOrders.slice().forEach(o => acceptOrder(o.id, 'DEV')); }],
+          ['Hapus semua order', () => { gameState.incomingOrders = []; }],
+          ['Klien +1', cheatSpawnClient], ['Klien +5', () => { for (let i = 0; i < 5; i++) cheatSpawnClient(); }],
+          ['Hapus semua klien', () => { gameState.activeClients = []; cleanupWorld(); }],
+          ['Perpanjangan semua klien sekarang', () => { gameState.activeClients.forEach(c => { c.nextRenewAt = 0; }); }],
+          ['Tiket +1', cheatSpawnTicket], ['Hapus semua tiket', () => { gameState.tickets = []; }]
+        ]],
+        ['Mode (toggle)', [
+          { tog: 'Uang tak terbatas', key: 'inf' }, { tog: 'Anti DDoS (tanpa serangan)', key: 'noddos' },
+          { tog: 'Auto terima order', key: 'auto' }, { tog: 'Klien super sabar', key: 'patient' }, { tog: 'Order x5 lebih sering', key: 'boost' }
+        ]],
+        ['Simulasi', [
+          ['Jalankan tick x1', () => simulationTick()], ['Tick x10', () => { for (let i = 0; i < 10; i++) simulationTick(); }], ['Tick x60', () => { for (let i = 0; i < 60; i++) simulationTick(); }]
+        ]],
+        ['Save', [
+          ['Simpan sekarang', () => {}], ['Salin save (JSON)', () => { try { navigator.clipboard.writeText(JSON.stringify(gameState)); showToast('Save disalin.', 'success'); } catch (e) { showToast('Gagal menyalin.', 'error'); } }],
+          { danger: 'Hapus save & ke menu', fn: () => { Store.write('save.jhv', ''); savedCache = null; gameState = createDefaultState(); closeAllModals(); const p = document.getElementById('cheat-panel'); if (p) p.classList.add('hidden'); switchScreen('menu'); } }
+        ]]
+      ];
+    }
+    function cheatInfo() {
+      const el = document.getElementById('cheat-info'); if (!el) return;
+      el.textContent = `${formatShortRp(gameState.money)} | RP ${gameState.researchPoints} | Rating ${gameState.rating} | Fans ${gameState.fans} | Server ${cheatRigs().length} | Klien ${gameState.activeClients.length} | Order ${gameState.incomingOrders.length} | Tiket ${gameState.tickets.length}`;
+    }
+    function renderCheatBody() {
+      const body = document.getElementById('cheat-body'); body.innerHTML = '';
+      const info = document.createElement('div'); info.id = 'cheat-info'; info.className = 'text-[10px] font-mono-num text-emerald-300 px-1 leading-snug'; body.appendChild(info);
+      const BTN = 'px-2 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 active:bg-emerald-700 text-[10px] font-bold text-white';
+      const run = fn => { try { fn(); } catch (e) { console.error(e); } updateHUD(); saveGame(false); refreshWinLive(); if (!document.getElementById('modal-servers').classList.contains('hidden')) renderServersModal(); AudioEngine.click(); cheatInfo(); };
+      cheatSections().forEach(([title, items], si) => {
+        const d = document.createElement('details'); d.className = 'rounded-xl bg-slate-800/80'; if (si === 0) d.open = true;
+        d.innerHTML = `<summary class="px-2.5 py-1.5 text-[11px] font-black text-emerald-300 cursor-pointer select-none">${title}</summary>`;
+        const g = document.createElement('div'); g.className = 'p-2 pt-0 flex flex-wrap gap-1'; d.appendChild(g);
+        items.forEach(it => {
+          if (Array.isArray(it)) { const b = document.createElement('button'); b.className = BTN; b.textContent = it[0]; b.addEventListener('click', () => run(it[1])); g.appendChild(b); }
+          else if (it.num) {
+            const w = document.createElement('div'); w.className = 'flex gap-1 w-full'; w.innerHTML = `<input type="number" placeholder="${it.num}" class="flex-1 min-w-0 px-2 py-1 rounded-lg bg-slate-950 border border-slate-600 text-[10px] font-mono-num text-white" /><button class="${BTN}">${it.num}</button>`;
+            w.querySelector('button').addEventListener('click', () => { const v = Number(w.querySelector('input').value); if (isNaN(v)) return; run(() => it.fn(v)); }); g.appendChild(w);
+          } else if (it.tog) {
+            const b = document.createElement('button'); const paint = () => { const on = !!(gameState.cheats && gameState.cheats[it.key]); b.className = 'w-full text-left px-2 py-1 rounded-lg text-[10px] font-bold ' + (on ? 'bg-emerald-600 text-white' : 'bg-slate-700 text-slate-200'); b.textContent = (on ? '[ON] ' : '[OFF] ') + it.tog; };
+            b.addEventListener('click', () => { gameState.cheats = gameState.cheats || {}; gameState.cheats[it.key] = !gameState.cheats[it.key]; run(() => {}); paint(); }); paint(); g.appendChild(b);
+          } else if (it.cat) {
+            const w = document.createElement('div'); w.className = 'flex gap-1 w-full';
+            w.innerHTML = `<select class="flex-1 min-w-0 px-1 py-1 rounded-lg bg-slate-950 border border-slate-600 text-[10px] text-white">${it.cat.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}</select><input type="number" value="5" class="w-12 px-1 py-1 rounded-lg bg-slate-950 border border-slate-600 text-[10px] font-mono-num text-white" /><button class="${BTN}">Tambah</button>`;
+            w.querySelector('button').addEventListener('click', () => { const c = w.querySelector('select').value, n = Math.max(1, Math.floor(Number(w.querySelector('input').value) || 1)); run(() => HARDWARE_CATALOG.filter(h => h.category === c).forEach(h => addInventory(h.id, n))); }); g.appendChild(w);
+          } else if (it.danger) {
+            const b = document.createElement('button'); b.className = 'px-2 py-1 rounded-lg bg-rose-700 text-[10px] font-bold text-white'; b.textContent = it.danger; let armed = false;
+            b.addEventListener('click', () => { if (!armed) { armed = true; b.textContent = 'Yakin? Tekan lagi'; setTimeout(() => { armed = false; b.textContent = it.danger; }, 3000); } else it.fn(); }); g.appendChild(b);
+          }
+        });
+        body.appendChild(d);
+      });
+      cheatInfo();
+    }
+    function openCheatMenu() {
+      let p = document.getElementById('cheat-panel');
+      if (p) { p.classList.remove('hidden'); renderCheatBody(); return; }
+      p = document.createElement('div'); p.id = 'cheat-panel';
+      p.className = 'fixed z-[300] w-[min(92vw,300px)] rounded-2xl bg-slate-900/95 text-slate-100 shadow-2xl border border-emerald-500/60 flex flex-col overflow-hidden';
+      p.style.left = '10px'; p.style.top = '50px';
+      p.innerHTML = `<div id="cheat-head" class="flex items-center justify-between px-3 py-2 bg-emerald-700 select-none" style="cursor:move;touch-action:none"><span class="text-[11px] font-black tracking-wider">DEV MENU</span><span class="flex gap-1"><button id="cheat-min" class="w-6 h-6 rounded bg-emerald-900 text-[12px] font-black leading-none">_</button><button id="cheat-x" class="w-6 h-6 rounded bg-emerald-900 text-[11px] font-black leading-none">X</button></span></div><div id="cheat-body" class="overflow-y-auto p-2 flex flex-col gap-1.5" style="max-height:62dvh"></div>`;
+      document.body.appendChild(p);
+      const head = p.querySelector('#cheat-head'); let dx = 0, dy = 0, drag = false, mini = false;
+      head.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; drag = true; const r = p.getBoundingClientRect(); dx = e.clientX - r.left; dy = e.clientY - r.top; head.setPointerCapture(e.pointerId); });
+      head.addEventListener('pointermove', e => { if (!drag) return; p.style.left = Math.max(0, Math.min(window.innerWidth - p.offsetWidth, e.clientX - dx)) + 'px'; p.style.top = Math.max(0, Math.min(window.innerHeight - 36, e.clientY - dy)) + 'px'; });
+      ['pointerup', 'pointercancel'].forEach(ev => head.addEventListener(ev, () => { drag = false; }));
+      p.querySelector('#cheat-min').addEventListener('click', () => { mini = !mini; p.querySelector('#cheat-body').style.display = mini ? 'none' : ''; p.style.width = mini ? '150px' : ''; });
+      p.querySelector('#cheat-x').addEventListener('click', () => p.classList.add('hidden'));
+      renderCheatBody();
+    }
+    function bindServersAndCheats() {
+      document.getElementById('dock-btn-servers').addEventListener('click', () => { AudioEngine.click(); if (gameState.bossPending) return showToast('Tempatkan Meja Bos dulu untuk mulai main.', 'info'); renderServersModal(); openModal('modal-servers'); });
+      document.getElementById('screen-win11').addEventListener('click', () => {
+        const n = Date.now(); cheatCC = (n - cheatCT < 2000) ? cheatCC + 1 : 1; cheatCT = n;
+        if (cheatCC >= 5) { cheatCC = 0; openCheatMenu(); showToast('Menu developer dibuka.', 'info', 1500); }
+      }, true);
+      if (cheatTimerOn) return; cheatTimerOn = true;
+      setInterval(() => {
+        const c = gameState.cheats; if (!c || currentScreen !== 'game') return;
+        if (c.inf && gameState.money < 9e12) { gameState.money = 9e12; updateHUD(); }
+        if (c.noddos && gameState.builtRigs.some(r => r.ddosActive)) { gameState.builtRigs.forEach(r => { r.ddosActive = false; }); rebuildAllPlacedMeshes(); }
+        if (c.auto && gameState.incomingOrders.length) gameState.incomingOrders.slice().forEach(o => acceptOrder(o.id, 'DEV'));
+      }, 1000);
+      setInterval(cheatInfo, 1000);
+    }
+
     function applyWallpaper() {
       const el = document.getElementById('screen-win11');
       if (gameState.wallpaper) { el.style.backgroundImage = `url(${gameState.wallpaper})`; el.style.backgroundSize = 'cover'; el.style.backgroundPosition = 'center'; }
       else { el.style.backgroundImage = ''; el.style.backgroundSize = ''; }
     }
     function bindExtraUI() {
+      bindServersAndCheats();
       const fw = document.getElementById('file-wall');
       document.getElementById('btn-wall-change').addEventListener('click', () => fw.click());
       document.getElementById('btn-wall-reset').addEventListener('click', () => { gameState.wallpaper = null; applyWallpaper(); saveGame(false); });
