@@ -1,0 +1,1 @@
+{ "appId": "web.syehan.jhv", "appName": "Juragan Hosting", "webDir": "www", "server": { "androidScheme": "https" }, "android": { "allowMixedContent": false } }
